@@ -50,7 +50,7 @@ cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
 
 # constants
 dataset = '../datasets/train/' 
-store2 = '../generated_images/'
+store2 = '../models/'
 val_data = '../datasets/validation/'
 store = '../datasets/generated_images/'
 
@@ -101,7 +101,7 @@ for e in range(epochs):
             # the generator loops indefinitely
             break
     if e%5 == 0:
-        cGAN.save_weights(store+str(e)+'.h5') 
+        cGAN.save_weights(store2+str(e)+'.h5') 
     gen_image_val = gen.predict(gray_val, batch_size=8)
     # if e%1 == 0: 
     #     for j in range(val_samples):
