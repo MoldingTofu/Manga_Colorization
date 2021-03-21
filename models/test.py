@@ -30,7 +30,8 @@ cGAN = cGAN_model(gen, disc)
 disc.compile(loss=['binary_crossentropy'], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08), metrics=['accuracy'])
 cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))
 tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
-cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
+#cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
+cGAN.load_weights("../datasets/generated_images/0.h5")
 
 # constants
 dataset = '../datasets/train/' 
@@ -38,8 +39,8 @@ val_data = '../datasets/test/'
 store2 = '../generated_images/'
 store = "../datasets/generated_images/"
 
-y_train = np.zeros((samples,1))
 samples = len(os.listdir(dataset))
+y_train = np.zeros((samples,1))
 val_samples = len(os.listdir(val_data))
 rgb = np.zeros((samples, x_shape, y_shape, 3))
 gray = np.zeros((samples, x_shape, y_shape, 1))
@@ -57,4 +58,4 @@ for i, image in enumerate(os.listdir(val_data)[:val_samples]):
 # stores cGAN's predictions
 gen_image_val = gen.predict(gray_val, batch_size=8)
 for j in range(val_samples):
-    cv2.imwrite(store+'/'+str(j)+'.jpg', gen_image_val[j])
+    cv2.imwrite(store+'/'+str(j)+'_0.jpg', gen_image_val[j])
