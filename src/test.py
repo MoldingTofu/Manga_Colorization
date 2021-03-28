@@ -19,7 +19,7 @@ x_shape = 512
 y_shape = 512
 fixed_seed_num = 1234
 np.random.seed(fixed_seed_num)
-tf.set_random_seed(fixed_seed_num)
+tf.compat.v1.set_random_seed(fixed_seed_num)
 
 # initialises cGAN model with (generator and discriminator)
 gen = generator_model(x_shape,y_shape)
@@ -31,7 +31,6 @@ disc.compile(loss=['binary_crossentropy'], optimizer=Adam(lr=1E-4, beta_1=0.9, b
 cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))
 tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 cGAN.load_weights("../models/cGAN_model.h5")
-#cGAN.load_weights("../datasets/generated_images/0.h5")
 
 # constants
 dataset = '../datasets/train/' 
@@ -58,4 +57,4 @@ for i, image in enumerate(os.listdir(val_data)[:val_samples]):
 # stores cGAN's predictions
 gen_image_val = gen.predict(gray_val, batch_size=8)
 for j in range(val_samples):
-    cv2.imwrite(store+'/'+str(j)+'_0.jpg', gen_image_val[j])
+    cv2.imwrite(store+'/'+str(j)+'.jpg', gen_image_val[j])

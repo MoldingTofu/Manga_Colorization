@@ -13,7 +13,7 @@ from keras.utils import plot_model
 # set seed for random number generators to get repeateable results
 fixed_seed_num = 1234
 np.random.seed(fixed_seed_num)
-tf.set_random_seed(fixed_seed_num)
+tf.compat.v1.set_random_seed(fixed_seed_num)
 
 def generator_model(x_shape,y_shape):
     
